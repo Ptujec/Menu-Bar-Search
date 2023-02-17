@@ -31,6 +31,7 @@ string uid = 4;
 string autoComplete = 5 [json_name = "autocomplete"];
 bool valid = 6;
 AlfredResultItemIcon icon = 7;
+string badge = 8;
 }
 
 message AlfredResultItemIcon {

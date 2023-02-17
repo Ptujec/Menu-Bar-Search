@@ -86,6 +86,8 @@ struct AlfredResultItem {
   var title: String = String()
 
   var subtitle: String = String()
+    
+  var badge: String = String()
 
   var arg: String = String()
 
@@ -347,6 +349,7 @@ extension AlfredResultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     5: .unique(proto: "autoComplete", json: "autocomplete"),
     6: .same(proto: "valid"),
     7: .same(proto: "icon"),
+    8: .same(proto: "badge"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -362,6 +365,7 @@ extension AlfredResultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 5: try { try decoder.decodeSingularStringField(value: &self.autoComplete) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.valid) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._icon) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.badge) }()
       default: break
       }
     }
@@ -393,18 +397,24 @@ extension AlfredResultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     try { if let v = self._icon {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    if !self.badge.isEmpty {
+      try visitor.visitSingularStringField(value: self.badge, fieldNumber: 8)
+    }
+      
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: AlfredResultItem, rhs: AlfredResultItem) -> Bool {
     if lhs.title != rhs.title {return false}
     if lhs.subtitle != rhs.subtitle {return false}
+      
     if lhs.arg != rhs.arg {return false}
     if lhs.uid != rhs.uid {return false}
     if lhs.autoComplete != rhs.autoComplete {return false}
     if lhs.valid != rhs.valid {return false}
     if lhs._icon != rhs._icon {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs.badge != rhs.badge {return false}
     return true
   }
 }
